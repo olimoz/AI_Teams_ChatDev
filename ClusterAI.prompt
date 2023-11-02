@@ -1,0 +1,15 @@
+1. Use pandas to read the excel file at /home/oliver/ChatDev/tools_data.xlsx
+2. the first three columns are Task Name, Name, Link. Discard other columns.
+3. Name the pandas object 'Data_pd' and sav it to file 'Data_pd.parquet'
+4. Use the Sentence Transformers package and the "BAAI/bge-small-en-v1.5" model to get embeddings of the 'Task Name' column from the pandas . This model is already available to you in the environment. 
+5. Add the embeddings column to the pandas dataframe 'Data_pd', now we have columns for Link, Task Name and Embedding. Save 'Data_pd' to file 'Data_pd.parquet'.
+6. Cluster those embeddings using 20 clusters in K-means. 
+7. Update the pandas dataframe 'Data_pd' with each row's cluster assignment. Save 'Data_pd' to file 'Data_pd.parquet'.
+8. Now that you have clusters, use Linear Discriminant Analysis (LDA) to reduce the embedding dimensions 2. Save those 'reduced_embeddings' to pandas 'Data_pd'. Save 'Data_pd' to file 'Data_pd.parquet'.
+9. Display a plotly scatter of the 'reduced embeddings'. Remember to use a list comprehension to extract the x and y value from each vector in the 'reduced embedding' column. Also, color=cluster label.
+10. Find the centroid of each cluster. Creat a new pandas dataframe 'Clusters_pd', one row per cluster label. Add cluster centroids to the pandas dataframe 'Clusters_pd'. Save 'Clusters_pd' to file 'Cluster_pd.parquet'.
+11. Find the 10 embeddings closest to each cluster's centroid, use the two pandas dataframes; 'Data_pd' for embeddings and 'Cluster_pd' for embedding centroids. This will require creating a new pandas dataframe, 'Closest_pd'. Save 'Closest_pd' to file 'Closest_pd.parquet'.
+12. Create lists of the 'Task Name' for each batch of those 10 embeddings, each batch representing one cluster. Add these to 'Closest_pd'. Hint: as you add 10 'Task Names' for each cluster to 'Closest_pd', use the pd.concat() function to append to 'Closest_pd'. Finally, save 'Closest_pd' to file 'Closest_pd.parquet'.
+13. Create a prompt for OpenAI GPT-3.5-turbo and, for each cluster in 'Closest_pd', submit the list of 10 'Task Names' to the model and ask the model for a summary in 8 words. Repeat this for each cluster. The model will return a 'Task Name summary', one for each cluster.  Record these in the pandas dataframe 'Cluster_pd'. Save 'Closest_pd' to file 'Closest_pd.parquet'. Save 'Cluster_pd' to file 'Cluster_pd.parquet'.
+14. Display a table of 'Cluster_pd'; 'Cluster label', 'Task Name summary', 'reduced_embedding' and merge the dataframe with a count of records per cluster from 'Data_pd'.
+15. Using 'Cluster_pd', Display a plotly scatter of the cluster centroids labelled with 'Task Name summary'. As before, remember to use a list comprehensions to access the x and y value in each centroid vector.
